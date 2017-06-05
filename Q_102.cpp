@@ -78,7 +78,5 @@ public:
         if(vec.size() == 0)
             return ret;
       }
-      
-        
     }
 };
