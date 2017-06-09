@@ -2,7 +2,7 @@ class Solution {
 public:
     
     int fac(double n,double k){
-   
+    
         double a = 1;
         double b = 1;
         double c = n-k;
@@ -19,7 +19,8 @@ public:
         }
         
         a =  a/b;
-        return (int)a;
+        return (int)(a+0.1);
+        
     }
 
     vector<vector<int>> generate(int numRows) {
@@ -39,6 +40,10 @@ public:
                     m = j;
                     
                 k = fac((double)i,(double)m);
+                //if(k == 0){
+                 //   printf("i is %d\n",i);
+                  //  printf("j is %d\n",j);
+                //}
                 vec.push_back(k);
             }
             ret.push_back(vec);
