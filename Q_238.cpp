@@ -10,16 +10,14 @@ public:
         
         mul = 1;
         
-        for(i=1;i<nums.size();i++)
-        {
+        for(i=1;i<nums.size();i++){
             mul *= nums[i-1];
             vec1[i] = mul;
         }
         
         mul = 1;
         
-        for(i=nums.size()-2;i>=0;i--)
-        {
+        for(i=nums.size()-2;i>=0;i--){
             mul *= nums[i+1];
             vec1[i] *= mul;
         }
