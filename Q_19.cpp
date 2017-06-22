@@ -25,7 +25,6 @@ public:
         temp1 = head;
         temp2 = head;
         
-       // n++;
         
         while(n>=0){
             if(temp1 == NULL)
