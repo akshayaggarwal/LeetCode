@@ -72,11 +72,10 @@ public:
     bool startsWith(string prefix) {
          
         string word = prefix;
-         
+        int i;
+        
         if(word.size() == 0)
             return true;
-        
-        int i;
         
             if(mymap.find(word[0]) == mymap.end()){
                 return false;
