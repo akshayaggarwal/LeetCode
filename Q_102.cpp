@@ -60,12 +60,6 @@ public:
         }
         
         
-        //printf("vec size1 is %d\n",vec.size());
-        
-        /*for(i=0;i<vec.size();i++){
-                printf("val before is %d \n",vec[i]->val);
-        }*/
-        
         vec.erase(vec.begin(),vec.begin()+a);
         level++;
         
