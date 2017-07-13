@@ -10,9 +10,7 @@ public:
             
             h = min(height[i],height[j]);
             diff = max(diff,h*(j-i));
-            
-            //hi = height[i];
-            //hj = height[j];
+
             
             while(height[i]<=h && i<j) 
                 i++;
