@@ -29,9 +29,6 @@ public:
         a1 = a1+finddepth(root->left);
         a2 = a2+finddepth(root->right);
         
-       // printf("a1 is %d\n",a1);
-        //printf("a2 is %d\n",a2);
-        
         if(abs(a1-a2) <= 1)
             return (true & isBalanced(root->left) & isBalanced(root->right));
         else
