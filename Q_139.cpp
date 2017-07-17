@@ -3,7 +3,6 @@ public:
     bool wordBreak(string s, vector<string>& wordDict) {
         
         vector<bool> myvec(s.size()+1,false);
-        
         myvec[0] = true;
         
         int i,j;
