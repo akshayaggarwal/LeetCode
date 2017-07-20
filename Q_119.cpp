@@ -19,8 +19,7 @@ public:
         }
         
         a =  a/b;
-        //printf("returning %f\n",a);
-        //printf("returning %d\n",(int)(a+0.1));
+
         return (int)(a+0.1);
     }
 
