@@ -40,10 +40,7 @@ public:
                     m = j;
                     
                 k = fac((double)i,(double)m);
-                //if(k == 0){
-                 //   printf("i is %d\n",i);
-                  //  printf("j is %d\n",j);
-                //}
+
                 vec.push_back(k);
             }
             ret.push_back(vec);
