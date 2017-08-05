@@ -9,9 +9,7 @@ public:
             return ret;
         
         sort(nums.begin(),nums.end());
-        
-        
-    
+
         int i,target,a,front,back,k = nums.size();
 
         
