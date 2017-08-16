@@ -73,11 +73,8 @@ public:
                     
                     one.push_back(x);
             }
-
-            }
-            
+            }   
         }
-        
              for(i=0;i<one.size();i++){
                 x = one[i];
                 board[x.first][x.second] = 1;
