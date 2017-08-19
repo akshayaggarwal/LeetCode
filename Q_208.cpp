@@ -6,82 +6,68 @@ public:
     bool endofword;
     
     Trie() {
-        endofword = false;
+        
     }
     
     /** Inserts a word into the trie. */
     void insert(string word) {
-
-        if(word.size() == 0)
+       // cout<<word<<endl;
+        if(word.size()<1)
             return;
-
-        int i,j;
-        Trie *mynode;
         
-            if(mymap.find(word[0]) == mymap.end()){
-                
-                mynode = new Trie();
-                
-                if(word.size()==1)
-                    mynode->endofword = true;
-                else
-                    mynode->endofword = false;
-                
-                mymap[word[i]] = (mynode);
-                
+        if(mymap.find(word[0]) != mymap.end()){
+            if(word.size() == 1){
+                mymap[word[0]]->endofword = true;
+                return;
             }
-            else
-            {
-                if(word.size()==1)
-                {
-                    mymap[word[0]]->endofword = true;   
-                }
-                mynode = mymap[word[i]];
+            else{
+                mymap[word[0]]->insert(word.substr(1,word.size()-1));
             }
-            mynode->insert(word.substr(1,word.size()-1));
-
+                
+        }
+        else{
+        //    printf("reached\n");
+             mymap[word[0]] = new Trie();
+            //mymap[word[0]] = node;
+            if(word.size() == 1)
+                mymap[word[0]]->endofword = true;
+            else{
+                mymap[word[0]]->endofword = false;
+                mymap[word[0]]->insert(word.substr(1,word.size()-1));
+            }
+        }
+        
     }
     
     /** Returns if the word is in the trie. */
     bool search(string word) {
-
-        int i,j;
-        
-        if(word.size() == 0)
+        if(word.size()<1)
             return true;
         
-        if(mymap.find(word[0]) == mymap.end()){
-            return false;
-        }
-        else{
+        if(mymap.find(word[0]) == mymap.end())
+            return false;    
+        
+        if(word.size()==1)
+            return mymap[word[0]]->endofword;
+        
+        return mymap[word[0]]->search(word.substr(1,word.size()-1));
             
-            if(word.size()==1){
-                if(mymap[word[0]]->endofword == true){
-                return true;
-                }
-                else
-                    return false;
-            
-            }
-                return mymap[word[i]]->search(word.substr(1,word.size()-1));
-            }    
         
     }
     
     /** Returns if there is any word in the trie that starts with the given prefix. */
     bool startsWith(string prefix) {
-         
-        string word = prefix;
-        int i;
-        
-        if(word.size() == 0)
+        if(prefix.size()<1)
             return true;
         
-            if(mymap.find(word[0]) == mymap.end()){
-                return false;
-            }
-            return mymap[word[0]]->startsWith(prefix.substr(1,prefix.size()-1));
-
+        if(mymap.find(prefix[0]) == mymap.end())
+            return false;    
+        
+        if(prefix.size()==1)
+            return true;
+        
+        return mymap[prefix[0]]->startsWith(prefix.substr(1,prefix.size()-1));
+        
     }
 };
 
