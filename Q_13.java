@@ -65,7 +65,6 @@ public class Solution {
                 count += 1000;    
         }
         
-        //System.out.println(count);
         return count;
     }
 }
