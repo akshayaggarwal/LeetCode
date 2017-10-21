@@ -9,41 +9,20 @@
 class Solution {
 public:
     ListNode* reverseBetween(ListNode* head, int m, int n) {
-        
-        int j,i = 1;
-        
-        ListNode *temp;
-        temp = head;
-        
-        if(head == NULL)
-            return head;
-        
-        vector<ListNode*> myvec;
-        
-        while(i<m){
-            printf("reached\n");
-       //     if(head != NULL)
-                head = head->next;
+        int k,i = 1;
+        int j = n;
+        ListNode *temp,*st = head;
+        while(i<=(m+n)/2){
+            if(i>=m){
+                temp = head;
+                for(k=i;k<j;k++)
+                    temp = temp->next;
+                swap(temp->val,head->val);
+                j--;
+            }
             i++;
-            printf("value of i is %d \n",i);
-        }    
-        
-        // now head is the starting position of swapping
-                
-        while(i<n){
-            myvec.push_back(head);
             head = head->next;
-            i++;
         }
-
-        myvec.push_back(head);
-
-        for(i=0,j=myvec.size()-1;i<j;i++,j--){
-            
-            swap(myvec[i]->val,myvec[j]->val);
-            
-        }
-        
-        return temp;
+        return st;
     }
 };
