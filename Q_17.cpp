@@ -1,12 +1,13 @@
 class Solution {
 public:
+    map<int,string> mymap;
+    
     vector<string> letterCombinations(string digits) {
-        
-        map<int,string> mymap;
-        int digit,i,j,a;
-        
-        mymap[0] = "";
-        mymap[1] = "";
+        vector<string> ret;
+        if(digits.size() == 0){
+            printf("here\n");
+            return ret;
+        }
         mymap[2] = "abc";
         mymap[3] = "def";
         mymap[4] = "ghi";
@@ -15,41 +16,22 @@ public:
         mymap[7] = "pqrs";
         mymap[8] = "tuv";
         mymap[9] = "wxyz";
-        
-        string substr;
-        vector<string> ret;
-        
-        if(digits.size() == 0)
-            return ret;
-        
+        string str = "";
+        int i,j,k;
+        string temp;
         ret.push_back("");
-        
-        
-        for(a=0;a<digits.size();a++){
-        
-            //printf("reached1\n");
-            digit = digits[a] - '0';
-            if(digit<0 || digit>9)
-                return ret;
-            //printf("reached2\n");
-            substr = mymap[digit];
-            vector<string> temp;
-            
-            if(substr == "")
-                continue;
-            
-            for(i=0;i<substr.size();i++){
+        for(i=0;i<digits.size();i++){
+            if(digits[i]-48 <2 || digits[i]-48> 9)
+                break;
+            temp = mymap[digits[i]-48];
+            vector<string> myvec;
+            for(k=0;k<temp.size();k++){
                 for(j=0;j<ret.size();j++){
-                    temp.push_back(ret[j] + substr[i]);
-              //      cout<<ret[j] + substr[i]<<endl;
+                    myvec.push_back(ret[j]+temp[k]);
                 }
             }
-            
-            ret.swap(temp);
-            
+            ret.swap(myvec);
         }
-    
         return ret;
-        
     }
 };
