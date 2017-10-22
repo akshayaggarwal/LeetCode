@@ -1,58 +1,43 @@
 class LRUCache {
 public:
-
+    int cap;
     map<int,int> mymap;
-    int si;
+    vector<int> lru_vec;
     
-    vector<int> myvec;
-
     LRUCache(int capacity) {
-        si = capacity;
+        cap = capacity;
     }
     
     int get(int key) {
-        
-        int i;
-
-        if(mymap.find(key) != mymap.end()){   
-            i = 0;
-            for(i=0;i<myvec.size();i++){
-                if(myvec[i] == key)
+        if(mymap.find(key) == mymap.end())
+            return -1;
+        else{
+            int i;
+            for(i=0;i<lru_vec.size();i++){
+                if(lru_vec[i] == key)
                     break;
             }
-          
-            myvec.erase(myvec.begin()+i);       
-            myvec.push_back(key);
-          
+            lru_vec.erase(lru_vec.begin()+i);
+            lru_vec.push_back(key);
             return mymap[key];
         }
-        else
-            return -1;
     }
     
-    void put(int key, int value) {              
-        
-        if(mymap.find(key) != mymap.end()){     
-               
-            int i;   
-            
-            for(i=0;i<myvec.size();i++){
-                if(myvec[i] == key)
+    void put(int key, int value){
+        if(mymap.find(key)!=mymap.end()){
+            int i;
+            for(i=0;i<lru_vec.size();i++){
+                if(lru_vec[i] == key)
                     break;
             }
-
-            myvec.erase(myvec.begin()+i);
-            
+            lru_vec.erase(lru_vec.begin()+i);  
         }
-        else if(mymap.size() == si)                  
-        {
-            mymap.erase(myvec[0]);                       
-            myvec.erase(myvec.begin());
+        else if(mymap.size()==cap){
+            mymap.erase(lru_vec[0]);
+            lru_vec.erase(lru_vec.begin());
         }
-        
-          mymap[key] = value;
-          myvec.push_back(key);
-            
+        lru_vec.push_back(key);
+        mymap[key] = value;
     }
 };
 
