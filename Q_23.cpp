@@ -9,47 +9,32 @@
 class Solution {
 public:
     ListNode* mergeKLists(vector<ListNode*>& lists) {
-        
-        if(lists.size() == 0)
-            return NULL;
-        
         multiset<int> myset;
         int i;
-        
-        
         for(i=0;i<lists.size();i++){
             while(lists[i]!=NULL){
                 myset.insert(lists[i]->val);
                 lists[i] = lists[i]->next;
             }
         }
-        
-        if(myset.size() == 0)
-            return NULL;
-            
-        ListNode *root = new ListNode(0);
-        ListNode *tmp = root;
-        i = 0;
-        
-        for(multiset<int>::iterator it = myset.begin();it!=myset.end();it++){
-            
-            root->val = *it;
-            
-            ListNode *newroot = new ListNode(0);
-            if(i<myset.size()-1){
-                root->next = newroot;
-                root = newroot;
+        multiset<int>::iterator it = myset.begin();
+        ListNode *st = NULL,*head = NULL,*temp = NULL;
+        int flag = 0;
+
+        while(it != myset.end()){
+            temp = new ListNode(*it);
+            if(flag != 0){
+                head->next = temp;
+                head = temp;
             }
             else{
-                root->next = NULL;
+                head = temp;
+                flag = 1;
+                st = temp;
             }
-            
-            i++;
+            it++;
         }
-        
-        root = NULL;
-        
-        return tmp;
-        
+       
+        return st;
     }
 };
