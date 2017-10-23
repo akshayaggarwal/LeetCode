@@ -1,99 +1,66 @@
 class Solution {
 public:
     string addBinary(string a, string b) {
-        
-        int n1 = a.size()-1;
-        int n2 = b.size()-1;
-        
-        string str="";
-        
-        int m,carry = 0;
-        
-        while(n1>=0 && n2>=0){
-            
-            //printf("inside while\n");
-            
-            m = (a[n1]-48) + (b[n2]-48) + carry;
-            
-            if(m == 3){
-                str = "1"+str;
-                carry = 1;
-            }
-            
-            else if(m == 2){
-                str = "0"+str;
-                carry = 1;
-            }
-            
-            else if(m == 1){
-                str = "1"+str;
-                carry = 0;
-            }
-            
-            else if(m == 0){
-                str = "0"+str;
-                carry = 0;
-            }
-            
-           n1--;
-           n2--;
+        if(b.size() == 0)
+            return a;
+        else if(a.size() == 0)
+            return b;
+        string str = "";
+        int car = 0,tar,i,j;
+        for(i=a.size()-1,j=b.size()-1;i>=0&&j>=0;i--,j--){
+                tar = car + (a[i]-48) + (b[j]-48);
+                if(tar == 0){
+                    str = '0' + str;
+                    car = 0;
+                }
+                else if(tar == 1){
+                    str = '1' + str;
+                    car = 0;
+                }
+                else if(tar == 2){
+                    str = '0' + str;
+                    car = 1;
+                }
+                else{
+                    str = '1' + str;
+                    car = 1;
+                }
+        }
+        while(i>=0){
+                tar = car + (a[i]-48);
+                if(tar == 0){
+                    str = '0' + str;
+                    car = 0;
+                }
+                else if(tar == 1){
+                    str = '1' + str;
+                    car = 0;
+                }
+                else{
+                    str = '0' + str;
+                    car = 1;
+                }
+            i--;
+        }
+        while(j>=0){
+                tar = car + (b[j]-48);
+                if(tar == 0){
+                    str = '0' + str;
+                    car = 0;
+                }
+                else if(tar == 1){
+                    str = '1' + str;
+                    car = 0;
+                }
+                else{
+                    str = '0' + str;
+                    car = 1;
+                }
+            j--;
         }
         
-        while(n1>=0){
-            
-            //printf("n1 extended val is %d\n",n1);
-            
-            m = (a[n1]-48) + carry;
-            
-            if(m == 2){
-                str = "0"+str;
-                carry = 1;
-            }
-            
-            else if(m == 1){
-                str = "1"+str;
-                carry = 0;
-            }
-            
-            else if(m == 0){
-                str = "0"+str;
-                carry = 0;
-            }
-            
-           n1--;
-            
-        }
-        
-        while(n2>=0){
-            
-            
-            //printf("n2 extended val is %d\n",n2);
-            
-            m = (b[n2]-48) + carry;
-            
-            if(m == 2){
-                str = "0"+str;
-                carry = 1;
-            }
-            
-            else if(m == 1){
-                str = "1"+str;
-                carry = 0;
-            }
-            
-            else if(m == 0){
-                str = "0"+str;
-                carry = 0;
-            }
-            
-           n2--;
-            //printf("n2 extended val is %d\n",n2);
-            
-        }
-        
-        if(carry != 0)
-            str = "1" + str;
-        
+        if(car == 1)
+            str = '1' + str;
         return str;
     }
-};
+};  
