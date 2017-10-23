@@ -15,6 +15,7 @@ public:
             return (struct1.start < struct2.start);
         }
     };
+    
     vector<Interval> merge(vector<Interval>& intervals) {
         vector<Interval> ret;
         if(intervals.size()==0)
