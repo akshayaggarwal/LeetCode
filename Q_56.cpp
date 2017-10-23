@@ -15,17 +15,19 @@ public:
             return (struct1.start < struct2.start);
         }
     };
-    
     vector<Interval> merge(vector<Interval>& intervals) {
+        vector<Interval> ret;
+        if(intervals.size()==0)
+            return ret;
         sort(intervals.begin(),intervals.end(),mysort());
         int i;
+        ret.push_back(intervals[0]);
         for(i=1;i<intervals.size();i++){
-                if(intervals[i].start<=intervals[i-1].end){
-                    intervals[i-1].end = intervals[i-1].end > intervals[i].end ? intervals[i-1].end : intervals[i].end;
-                    intervals.erase(intervals.begin() + i);
-                    i--;
-                }
+                if(ret.back().end<intervals[i].start)
+                    ret.push_back(intervals[i]);
+                else
+                    ret.back().end = max (ret.back().end,intervals[i].end);
         }
-        return intervals;
+        return ret;
     }
 };
