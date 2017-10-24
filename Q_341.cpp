@@ -17,47 +17,33 @@
  */
 class NestedIterator {
 public:
-
-    vector<int> myvec;
-    int si;
-
-    void fillvector(vector<NestedInteger> &nestedList){
-        
-        
-        for(int i=0;i<nestedList.size();i++){
-            
-            if(nestedList[i].isInteger() == true){
-                myvec.push_back(nestedList[i].getInteger());
+    int j,si;
+    vector<int> mylist;
+    
+    void fill_list(vector<NestedInteger> &nestedList){
+        int i;
+        for(i=0;i<nestedList.size();i++){
+           if(nestedList[i].isInteger() == true){
+                mylist.push_back(nestedList[i].getInteger());
             }
-            else
-                fillvector(nestedList[i].getList()); {
+            else{
+                fill_list(nestedList[i].getList());
             }
         }
-        //si = 0;
-
-        
+        si = mylist.size();
+        j = 0;
     }
-
-
+    
     NestedIterator(vector<NestedInteger> &nestedList) {
-                
-        fillvector(nestedList);
-        si = 0;
-        for(int i=0;i<myvec.size();i++)
-            printf("%d \n",myvec[i]);
+        fill_list(nestedList);
     }
 
     int next() {
-        
-        //if(si<myvec.size()){
-            si++;
-            return myvec[si-1];
-        //}
+        return mylist[j++];
     }
 
     bool hasNext() {
-        
-        return si<myvec.size();
+            return j<si;
     }
 };
 
