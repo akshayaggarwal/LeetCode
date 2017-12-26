@@ -11,23 +11,27 @@ class Solution {
 public:
     map<int,int> mymap;
     
-    void findlarg(TreeNode* root,int level){
-        if(root == NULL)
+    void fillmap(TreeNode *node,int num){
+        if(node==NULL)
             return;
-        if(mymap.find(level) == mymap.end())
-            mymap[level] = root->val;
-        else if(root->val > mymap[level])
-            mymap[level] = root->val;
-        findlarg(root->left,level+1);
-        findlarg(root->right,level+1);
+        if(mymap.find(num)==mymap.end())
+            mymap[num]=node->val;
+        else if(mymap[num]<node->val)
+            mymap[num]=node->val;
+        
+        fillmap(node->left,num+1);
+        fillmap(node->right,num+1);
+        return;
     }
     
     vector<int> largestValues(TreeNode* root) {
-        findlarg(root,0);
+        fillmap(root,0);
         vector<int> ret;
-        map<int,int>::iterator it = mymap.begin();
-        while(it != mymap.end())
-            ret.push_back(((it++)->second));
+        map<int,int>::iterator it=mymap.begin();
+        while(it!=mymap.end()){
+            ret.push_back(it->second);
+            it++;
+        }
         return ret;
     }
 };
