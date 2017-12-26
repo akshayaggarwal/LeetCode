@@ -9,25 +9,17 @@
 class Solution {
 public:
     ListNode* reverseList(ListNode* head) {
-        
-        if(head == NULL)
-            return NULL;
-        ListNode *first = new ListNode(0);
-        ListNode *temp;
-        int flag = 0;
-        while(head != NULL){
-            if(flag == 0){
-                first->val = head->val;
-                flag = 1;
-            }
-            else{
-                temp = new ListNode(0);
-                temp->val = head->val;
-                temp->next = first;
-                first = temp;
-            }
-            head = head->next;
+        if(head==NULL)
+            return head;
+        ListNode *prev,*next,*cur;
+        cur=head;
+        prev=NULL;
+        while(cur!=NULL){
+            next=cur->next;
+            cur->next=prev;
+            prev=cur;
+            cur=next;
         }
-        return first;
+        return prev;
     }
 };
