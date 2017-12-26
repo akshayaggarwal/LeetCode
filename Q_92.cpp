@@ -9,20 +9,21 @@
 class Solution {
 public:
     ListNode* reverseBetween(ListNode* head, int m, int n) {
-        int k,i = 1;
-        int j = n;
-        ListNode *temp,*st = head;
-        while(i<=(m+n)/2){
-            if(i>=m){
-                temp = head;
-                for(k=i;k<j;k++)
-                    temp = temp->next;
-                swap(temp->val,head->val);
-                j--;
-            }
+        if(head==NULL||m==n)
+            return head;
+        vector<ListNode*> myvec;
+        ListNode*cur;
+        int i=1,j,si;
+        cur=head;
+        while(cur!=NULL){
+            if(i>=m&&i<=n)
+                myvec.push_back(cur);
+            cur=cur->next;
             i++;
-            head = head->next;
         }
-        return st;
+        si = myvec.size();
+        for(i=0,j=si-1;i<si/2;i++,j--)
+            swap(myvec[i]->val,myvec[j]->val);
+        return head;
     }
 };
