@@ -1,41 +1,37 @@
-// Need to improve complexity
-
 class Solution {
 public:
     vector<int> topKFrequent(vector<int>& nums, int k) {
-     
-     vector<int> vec;
-     int i,j,max,val;
-     
-     std::map<int,int> mymap;
-     
-     for(i=0;i<nums.size();i++)
-     {
-         mymap[nums[i]]++;
-     }
-     
-     i = 0;
-     
-     while(i<k){
+        unordered_map<int,int> mymap1;
+        map<int,vector<int>> mymap2;
+        int i,j,count=0;
+        vector<int> ret;
+        if(k==0)
+            return ret;
+        for(i=0;i<nums.size();i++)
+            mymap1[nums[i]]++;
+        unordered_map<int,int>::iterator it=mymap1.begin();
+        while(it!=mymap1.end()){
+            mymap2[it->second].push_back(it->first);
+            it++;
+        }
         
-        
-         max = INT_MIN;
-         j = 0;
-         i++;
-        
-        for(std::map<int,int>::iterator it = mymap.begin();it!=mymap.end();it++){
-         
-         if(it->second >= max){
-             
-            max = it->second;
-            val = it->first;
+        map<int,vector<int>>::iterator it2=mymap2.end();
+        it2--;
+        while(1){
+            vector<int> temp=it2->second;
+            for(j=0;j<temp.size();j++){
+                printf("here\n");
+                if(count==k)
+                    break;
+                ret.push_back(temp[j]);
+                count++;
+                
             }
-            j++;
-         
-     }
-        vec.push_back(val);
-        mymap.erase(val);
-     } 
-        return vec;
+            if(it2==mymap2.begin())
+                break;
+            it2--;
+        }
+
+    return ret;
     }
-};
+    };
