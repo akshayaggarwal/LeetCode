@@ -1,38 +1,38 @@
 class Solution {
 public:
     vector<vector<int>> threeSum(vector<int>& nums) {
-        vector<vector<int>> ret;
-        if(nums.size()<3)
-            return ret;
         sort(nums.begin(),nums.end());
-        
+        vector<vector<int>> ret;
         vector<int> myvec;
-        int i,j,target,a,front,back;
-        for(i=0;i<nums.size()-1;i++){
-            front = i+1;
-            back = nums.size()-1;
-            target = -nums[i];
+        int i,j,target,front,back,temp;
+        for(i=0;i<nums.size();){
+            target = nums[i];
+            target*=-1;
+            front=i+1;
+            back=nums.size()-1;
             while(front<back){
-                myvec.clear();
-                a = nums[front]+nums[back];
-                if(a<target)
+                temp=nums[front]+nums[back];
+                if(temp<target)
                     front++;
-                else if(a>target)
+                else if(temp>target)
                     back--;
                 else{
+                    myvec.clear();
                     myvec.push_back(nums[i]);
                     myvec.push_back(nums[front]);
                     myvec.push_back(nums[back]);
-                    ret.push_back(myvec);
-                    while(front<back&&nums[front] == myvec[1])
+                    j=front;
+                    while(front<back&&nums[j]==nums[front])
                         front++;
-                    while(front<back&&nums[back] == myvec[0])
+                    j=back;
+                    while(back>front&&nums[j]==nums[back])
                         back--;
+                    ret.push_back(myvec);
                 }
             }
-            while(i<nums.size()&&nums[i]==-target)
+            j=i;
+            while(i<nums.size()&&nums[i]==nums[j])
                 i++;
-            i--;
         }
         return ret;
     }
