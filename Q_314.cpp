@@ -9,58 +9,38 @@
  */
 class Solution {
 public:
+    map<int,map<int,vector<int>>> mymap;
     
-
-    
-    /*void fillvec(TreeNode* head,int val){
-        if(head == NULL)
-            return;
-        if(head->left != NULL)
-            mymap[val-1].push_back(head->left->val);
-        if(head->right != NULL)
-            mymap[val+1].push_back(head->right->val);
-        
-        fillvec(head->left,val-1);
-        fillvec(head->right,val+1);
-    }*/
-    
+    void fillmap(TreeNode* node,int val,int ht){
+        mymap[val][ht].push_back(node->val);
+        if(node->left!=NULL)
+            fillmap(node->left,val-1,ht+1);
+        if(node->right!=NULL)
+            fillmap(node->right,val+1,ht+1);
+    }
     vector<vector<int>> verticalOrder(TreeNode* root) {
-       
-        map<int,vector<int>> mymap;
-        
-        queue<pair<int,TreeNode*>> qu;
         
         vector<vector<int>> ret;
-        vector<int> vec;
-        
-        TreeNode *node;
         if(root == NULL)
             return ret;
-        
-        qu.push(make_pair(0,root));
-        
-        while(! qu.empty()){
-            
-            mymap[qu.front().first].push_back(qu.front().second->val);
-            
-         
-          
-            if(qu.front().second->left != NULL)
-                qu.push(make_pair(qu.front().first-1,qu.front().second->left));
-            
-            if(qu.front().second->right != NULL)
-                qu.push(make_pair(qu.front().first+1,qu.front().second->right));
-            
-            qu.pop();
-            
+        fillmap(root,0,0);
+        map<int,map<int,vector<int>>>::iterator it=mymap.begin();
+        map<int,vector<int>>::iterator it2;
+        int j=0,k=0;
+        while(it!=mymap.end()){
+            it2=it->second.begin();
+            vector<int> temp;
+            while(it2!=it->second.end()){
+                
+                for(j=0;j<it2->second.size();j++)
+                    temp.push_back(it2->second[j]);
+                
+                it2++;
+            }
+            ret.push_back(temp);
+            it++;
+            k++;
         }
-
-        
-        for(map<int,vector<int>>::iterator it = mymap.begin();it!=mymap.end();it++){
-            vec = it->second;
-            ret.push_back(vec);
-        }
-        
         return ret;
     }
 };
