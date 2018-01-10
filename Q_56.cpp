@@ -9,25 +9,34 @@
  */
 class Solution {
 public:
-    struct mysort {
-        inline bool operator() (const Interval& struct1, const Interval& struct2)
-        {
-            return (struct1.start < struct2.start);
-        }
-    };
-    
     vector<Interval> merge(vector<Interval>& intervals) {
+        map<int,int> mymap;
         vector<Interval> ret;
-        if(intervals.size()==0)
-            return ret;
-        sort(intervals.begin(),intervals.end(),mysort());
-        int i;
-        ret.push_back(intervals[0]);
-        for(i=1;i<intervals.size();i++){
-                if(ret.back().end<intervals[i].start)
-                    ret.push_back(intervals[i]);
-                else
-                    ret.back().end = max (ret.back().end,intervals[i].end);
+        int i,a,b;
+        
+        for(i=0;i<intervals.size();i++){
+            a=intervals[i].start;
+            b=intervals[i].end;
+            if(mymap.find(a)!=mymap.end())
+                mymap[a]=mymap[a]>b?mymap[a]:b;
+            else
+                mymap[a]=b;
+        }
+        
+        map<int,int>::iterator it1,it2;
+        it1=mymap.begin();
+        b=0;
+        
+        while(it1!=mymap.end()){
+            it2=it1;
+            a=it1->second;
+            while(it2!=mymap.end()&&it2->first<=a){
+                if(it2->second>a)
+                    a=it2->second;
+                it2++;
+            }
+            ret.push_back(Interval(it1->first,a));
+            it1=it2;
         }
         return ret;
     }
