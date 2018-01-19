@@ -9,37 +9,28 @@
  */
 class Solution {
 public:
-
-    vector<int> vec;
-
-    void fillvec(TreeNode* root)
-    {
-        if(root == NULL)
+    
+    vector<int> myvec;
+    int n;
+    
+    void fillvec(TreeNode* node){
+        if(node==NULL||myvec.size()>=n)
             return;
-            
-        if(root->left == NULL && root->right == NULL){
-            vec.push_back(root->val);
+        if(node->left==NULL && node->right==NULL){
+            myvec.push_back(node->val);
             return;
         }
-        
-        if(root->left != NULL)
-            fillvec(root->left);
-        
-        vec.push_back(root->val);
-        
-        if(root->right != NULL)
-            fillvec(root->right);
-        
-        return;
+            
+        fillvec(node->left);
+        myvec.push_back(node->val);
+        if(myvec.size()>=n)
+            return;
+        fillvec(node->right);
     }
-
+    
     int kthSmallest(TreeNode* root, int k) {
-        
+        n=k;
         fillvec(root);
-        
-        sort(vec.begin(),vec.end());
-        
-        return vec[k-1];
-
+        return myvec[k-1];
     }
 };
