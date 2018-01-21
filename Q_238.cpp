@@ -1,40 +1,26 @@
 class Solution {
 public:
     vector<int> productExceptSelf(vector<int>& nums) {
-        int i,prod=1,n=nums.size();
-        vector<int> ret(n,0);
-        if(n==0)
-            return ret;
-        int temp,count=0;
-        for(i=0;i<n;i++){
+        vector<int> myvec(nums.size(),0);
+        int count=0,sum=1,i,j;
+        for(i=0;i<nums.size();i++){
             if(nums[i]==0){
-                if(count==1){
-                    prod=0;
-                    break;
-                }
-                else{
-                    count++;
-                    temp=i;
-                    continue;
-                }
+                j=i;
+                count++;
             }
-            prod*=nums[i];
+            if(count>1)
+                break;
+            if(nums[i]!=0)
+                sum*=nums[i];
         }
-        
-        if(prod==0)
-            return ret;
-        
-        if(count==1){
-            ret[temp]=prod;
-            return ret;
+        if(count>1)
+            return myvec;
+        else if(count==1){
+            myvec[j]=sum;
+            return myvec;
         }
-        
-        for(i=0;i<n;i++){
-            if(nums[i]==0)
-                ret[i]=prod;
-            else
-                ret[i]=prod/nums[i];
-        }
-        return ret;
+        for(i=0;i<myvec.size();i++)
+            myvec[i]=sum/nums[i];
+        return myvec;
     }
 };
