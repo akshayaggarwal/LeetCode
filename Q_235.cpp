@@ -9,23 +9,36 @@
  */
 class Solution {
 public:
-
     
-
-    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+    TreeNode* ret=NULL;
+    
+    void lca(TreeNode* root, TreeNode* pnode, TreeNode* qnode){
+        if(root==NULL)
+            return;
         
-        if(root == p || root == q)
+        if(root==pnode || root==qnode){
+            ret=root;
+            return;
+        }
+        if(root->val > pnode->val && root->val < qnode->val){
+            ret=root;
+            return;
+        }
+        if(root->val > qnode->val)
+            lca(root->left,pnode,qnode);
+        else
+            lca(root->right,pnode,qnode);
+    }
+    
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+        if(root==NULL)
             return root;
-            
-        if(root->val > p->val && root->val < q->val)
-            return root;
-            
-        if(root->val > q->val && root->val < p->val)
-            return root;    
-            
-        if(root->val < p->val && root->val < q->val)
-            return lowestCommonAncestor(root->right,p,q);
-        if(root->val > p->val && root->val > q->val)
-            return lowestCommonAncestor(root->left,p,q);
+        if(p==q)
+            return p;
+        if(p->val<q->val)
+            lca(root,p,q);
+        else
+            lca(root,q,p);
+        return ret;
     }
 };
