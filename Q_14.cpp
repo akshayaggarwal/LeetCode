@@ -1,31 +1,23 @@
 class Solution {
 public:
     string longestCommonPrefix(vector<string>& strs) {
-        int i,j,flag=0,count=0;
         string temp="";
-        
-        char ch;
-        
-        if(strs.size()<=0||strs[0].size()==0)
+        if(strs.size()==0)
             return temp;
-        
-        printf("here\n");
-        
-        for(i=0;;i++){
-            if(strs[0].size()<=i)
-                return temp;
-            ch = strs[0][i];
-            
+        int i=0,j;
+        char ch;
+        while(1){
+            if(i>=strs[0].size())
+                break;
+            ch=strs[0][i];
             for(j=1;j<strs.size();j++){
-                if(strs[j].size()<=i)
-                    return temp;
-                if(strs[j][i]!=ch)
+                if(i>=strs[j].size() || strs[j][i]!=ch)
                     break;
             }
-            if(j>=strs.size())
-                temp+=ch;
-            else
+            if(j<strs.size())
                 break;
+            temp+=ch;
+            i++;
         }
         return temp;
     }
