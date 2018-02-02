@@ -9,30 +9,28 @@
  */
 class Solution {
 public:
-    
     vector<int> myvec;
     
-    void fill_vec(TreeNode* root){
-        
-        if(root == NULL)
+    void inorder(TreeNode *root){
+        if(root==NULL)
             return;
-        
-        fill_vec(root->left);
+        if(root->left==NULL && root->right==NULL){
+            myvec.push_back(root->val);
+            return;
+        }
+        inorder(root->left);
         myvec.push_back(root->val);
-        fill_vec(root->right);
-        
+        inorder(root->right);
     }
     
     bool isValidBST(TreeNode* root) {
-       
-       fill_vec(root);
-       if(myvec.size()<=1)
+        if(root == NULL)
             return true;
-        
-       for(int i=1;i<myvec.size();i++){
+        int i;
+        inorder(root);
+        for(i=1;i<myvec.size();i++)
             if(myvec[i]<=myvec[i-1])
                 return false;
-       }
         
         return true;
     }
