@@ -1,43 +1,29 @@
 class Solution {
 public:
     void setZeroes(vector<vector<int>>& matrix) {
-        
-        int i,j,k,flag;
-        set<int> mysetr,mysetc;
-        int m = matrix[0].size();
-        
+        set<int> setx;   
+        set<int> sety;
+        int i,j;
         for(i=0;i<matrix.size();i++){
-            flag = 0;
-            for(j=0;j<m;j++){
-            
-                if(matrix[i][j] == 0){
-                    mysetr.insert(i);
-                    mysetc.insert(j);
+            for(j=0;j<matrix[0].size();j++){
+                if(matrix[i][j]==0){
+                    setx.insert(i);
+                    sety.insert(j);
                 }
-                
             }
         }
-        
-        set<int>::iterator it;
-        
-        
-        for(it = mysetr.begin();it!=mysetr.end();it++){
-            for(i=0;i<m;i++){
-                matrix[*it][i] = 0;
-            }
+        set<int>::iterator it=setx.begin();
+        while(it!=setx.end()){
+            for(i=0;i<matrix[0].size();i++)
+                matrix[*it][i]=0;
+            it++;
         }
-        
-        if(mysetr.size()!=matrix.size()){
-            
-        for(it = mysetc.begin();it!=mysetc.end();it++){
-            for(i=0;i<matrix.size();i++){
-                matrix[i][*it] = 0;
-            }
+        it=sety.begin();
+        while(it!=sety.end()){
+            for(i=0;i<matrix.size();i++)
+                matrix[i][*it]=0;
+            it++;
         }
-        
-            
-        }
-        
-        
+        //return matrix;
     }
 };
