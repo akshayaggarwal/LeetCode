@@ -14,3 +14,5 @@ class Solution:
         for i in A:
             mylist.append(mymap[i]) 
         return mylist
+    
+    
