@@ -1,29 +1,35 @@
 class Solution {
 public:
     string countAndSay(int n) {
-        vector<int> myvec,temp;
-        string str="";
-        if(n<1)
-            return str;
-        int i,count,num;
-        myvec.push_back(1);
-        while(n>1){
-            temp.clear();
-            for(i=0;i<myvec.size();){
-                num=myvec[i];
+        if(n==1)
+            return "1";
+        vector<vector<int>> myvec;
+        vector<int> temp,temp2;
+        int i,count,a;
+        string ret="";
+        temp.push_back(1);
+        myvec.push_back(temp);
+        n--;
+        while(n>0){
+            temp=myvec[myvec.size()-1];
+            count=0;
+            temp2.clear();
+            for(i=0;i<temp.size();){
+                a=temp[i];
                 count=0;
-                while(i<myvec.size()&&myvec[i]==num){
-                    count++;
+                while(i<temp.size()&&temp[i]==a){
                     i++;
+                    count++;
                 }
-                temp.push_back(count);
-                temp.push_back(num);
+                temp2.push_back(count);
+                temp2.push_back(a);
             }
+            myvec.push_back(temp2);
             n--;
-            myvec=temp;
         }
-        for(i=0;i<myvec.size();i++)
-            str+=myvec[i]+48;
-        return str;
+        temp=myvec[myvec.size()-1];
+        for(i=0;i<temp.size();i++)
+            ret+=temp[i]+48;
+        return ret; 
     }
 };
